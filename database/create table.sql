@@ -1,7 +1,3 @@
-﻿---------------------------------------------
--- CREATE TABLE
----------------------------------------------
-
 CREATE TABLE tournament (
 
 tournament_id serial PRIMARY KEY,
@@ -24,7 +20,8 @@ fk_tuser_id integer NOT NULL
 CREATE TABLE distribution_platform (
 
 distribution_platform_id serial PRIMARY KEY,
-distribution_platform_name varchar(50) NOT NULL
+distribution_platform_name varchar(50) NOT NULL,
+fk_web_ref integer NOT NULL
 );
 
 CREATE TABLE game (
@@ -120,10 +117,10 @@ CREATE TABLE tuser (
 tuser_id serial PRIMARY KEY,
 tuser_firstname varchar(50) NOT NULL,
 tuser_lastname varchar(50) NOT NULL,
-tuser_nickname varchar(50) NOT NULL,
+tuser_nickname varchar(50) UNIQUE NOT NULL,
 tuser_password varchar(50) NOT NULL,
 tuser_dob date,
-tuser_email varchar(50),
+tuser_email varchar(50) UNIQUE NOT NULL,
 tuser_phone varchar(50),
 fk_trole_id integer
 );
@@ -194,6 +191,10 @@ ADD FOREIGN KEY (fk_location_id) REFERENCES location;
 
 ALTER TABLE sponsor
 ADD FOREIGN KEY (fk_web_ref_id) REFERENCES web_ref;
+
+ALTER TABLE distribution_platform
+ADD FOREIGN KEY (fk_web_ref_id) REFERENCES web_ref;
+
 -------------------------------------------
 --ALTER TABLE TABLE INTERMEDIAIRE
 -------------------------------------------
@@ -221,9 +222,3 @@ ADD FOREIGN KEY (fk_game_id) REFERENCES game;
 
 ALTER TABLE game_account_game
 ADD FOREIGN KEY (fk_game_account_id) REFERENCES game_account;
-
-
-
-
-
-
