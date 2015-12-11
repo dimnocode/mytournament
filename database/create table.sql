@@ -74,10 +74,10 @@ fk_tournament_id integer NOT NULL,
 fk_type_of_reward_id integer NOT NULL
 );
 
-CREATE TABLE role (
+CREATE TABLE trole (
 
-role_id	serial PRIMARY KEY,
-role_name varchar(50) NOT NULL
+trole_id	serial PRIMARY KEY,
+trole_name varchar(50) NOT NULL
 );
 
 CREATE TABLE sponsor (
@@ -125,7 +125,7 @@ tuser_password varchar(50) NOT NULL,
 tuser_dob date,
 tuser_email varchar(50),
 tuser_phone varchar(50),
-fk_role_id integer
+fk_trole_id integer
 );
 
 CREATE TABLE tuser_team (
@@ -154,7 +154,7 @@ web_ref_logo_url text
 --ALTER TABLE TABLES PRINCIPALES
 -------------------------------------------
 ALTER TABLE tuser
-ADD FOREIGN KEY (fk_role_id) REFERENCES role;
+ADD FOREIGN KEY (fk_trole_id) REFERENCES trole;
 
 ALTER TABLE reward
 ADD FOREIGN KEY (fk_Tournament_id)REFERENCES tournament;
