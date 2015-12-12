@@ -1,4 +1,4 @@
-CREATE TABLE tournament (
+﻿CREATE TABLE tournament (
 
 tournament_id serial PRIMARY KEY,
 tournament_name	varchar(50) NOT NULL,
@@ -14,7 +14,6 @@ fk_game_id integer NOT NULL,
 fk_match_type_id integer NOT NULL,
 fk_tournament_structure_id integer NOT NULL,
 fk_tuser_id integer NOT NULL
-
 );
 
 CREATE TABLE distribution_platform (
@@ -73,7 +72,7 @@ fk_type_of_reward_id integer NOT NULL
 
 CREATE TABLE trole (
 
-trole_id	serial PRIMARY KEY,
+trole_id serial PRIMARY KEY,
 trole_name varchar(50) NOT NULL
 );
 
@@ -144,12 +143,12 @@ CREATE TABLE web_ref (
 web_ref_id serial PRIMARY KEY,
 web_ref_website	text,
 web_ref_logo_url text
-
 );
 
 -------------------------------------------
 --ALTER TABLE TABLES PRINCIPALES
 -------------------------------------------
+
 ALTER TABLE tuser
 ADD FOREIGN KEY (fk_trole_id) REFERENCES trole;
 
