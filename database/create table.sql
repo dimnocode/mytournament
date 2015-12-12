@@ -20,7 +20,7 @@ CREATE TABLE distribution_platform (
 
 distribution_platform_id serial PRIMARY KEY,
 distribution_platform_name varchar(50) NOT NULL,
-fk_web_ref integer NOT NULL
+fk_web_ref_id integer NOT NULL
 );
 
 CREATE TABLE game (
