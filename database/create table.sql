@@ -88,7 +88,7 @@ fk_web_ref_id integer
 CREATE TABLE team (
 
 team_id	serial PRIMARY KEY,
-team_name varchar(50) NOT NULL,
+team_name varchar(50) UNIQUE NOT NULL,
 fk_web_ref_id integer NOT NULL
 );
 
