@@ -19,15 +19,13 @@ fk_tuser_id integer NOT NULL
 CREATE TABLE distribution_platform (
 
 distribution_platform_id serial PRIMARY KEY,
-distribution_platform_name varchar(50) NOT NULL,
-fk_web_ref_id integer NOT NULL
+distribution_platform_name varchar(50) NOT NULL
 );
 
 CREATE TABLE game (
 
 game_id	serial PRIMARY KEY ,
-game_name varchar(50) NOT NULL,
-fk_web_ref_id integer NOT NULL
+game_name varchar(50) NOT NULL
 );
 
 CREATE TABLE game_account (
@@ -179,9 +177,6 @@ ADD FOREIGN KEY (fk_tournament_structure_id) REFERENCES tournament_structure;
 ALTER TABLE tournament
 ADD FOREIGN KEY (fk_location_id) REFERENCES location;
 
-ALTER TABLE game
-ADD FOREIGN KEY (fk_web_ref_id) REFERENCES web_ref;
-
 ALTER TABLE team
 ADD FOREIGN KEY (fk_web_ref_id) REFERENCES web_ref;
 
@@ -189,9 +184,6 @@ ALTER TABLE sponsor
 ADD FOREIGN KEY (fk_location_id) REFERENCES location;
 
 ALTER TABLE sponsor
-ADD FOREIGN KEY (fk_web_ref_id) REFERENCES web_ref;
-
-ALTER TABLE distribution_platform
 ADD FOREIGN KEY (fk_web_ref_id) REFERENCES web_ref;
 
 -------------------------------------------
