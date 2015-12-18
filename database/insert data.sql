@@ -36,6 +36,7 @@ VALUES ('Lucas', 'Giunta', 'GL', 'password', '13/03/1986', 'giunta@gmail.com', '
 --------------------------------
 --Distribution platforms
 --------------------------------
+
 --Steam
 INSERT INTO distribution_platform (distribution_platform_name) 
 VALUES ('Steam');
@@ -115,15 +116,55 @@ VALUES ('xvsy');
 INSERT INTO match_type (match_type_name)
 VALUES ('coop');
 
---WITH AS example
+--------------------------------
+--Team
+--------------------------------
 
--- WITH i AS(
--- INSERT INTO web_ref (web_ref_id, web_ref_website, web_ref_logo_url)
--- VALUES (1, 'http://steamcommunity.com/', 'http://steamcommunity-a.akamaihd.net/public/shared/images/header/globalheader_logo.png')
--- RETURNING web_ref_id
--- )
--- INSERT INTO distribution_platform (distribution_platform_name, fk_web_ref) 
--- VALUES ('Steam', (SELECT web_ref_id FROM i));
+--GGTeam
+WITH i AS(
+INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
+VALUES ('http://www.teamcs.net/GGteam', 'http://www.teamcs.net/GGteam/logo.png')
+RETURNING web_ref_id)
+
+INSERT INTO team (team_name, fk_web_ref_id) 
+VALUES ('GGTeam', (SELECT web_ref_id FROM i));
+
+--Atc Clan
+WITH i AS(
+INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
+VALUES ('http://www.teamcs.net/AtcClan', 'http://www.teamcs.net/AtcClan/logo.png')
+RETURNING web_ref_id)
+
+INSERT INTO team (team_name, fk_web_ref_id) 
+VALUES ('ATC Clan', (SELECT web_ref_id FROM i));
+
+--Kikoo Team
+WITH i AS(
+INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
+VALUES ('http://www.teamlol.net/Kikooteam', 'http://www.teamlol.net/Kikooteam/logo.png')
+RETURNING web_ref_id)
+
+INSERT INTO team (team_name, fk_web_ref_id) 
+VALUES ('ATC Clan', (SELECT web_ref_id FROM i));
+
+--------------------------------
+--Sponsor
+--------------------------------
+
+--BNP Paribas Fortis
+WITH 
+web AS(
+INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
+VALUES ('http://bnpparibasfortis.be/', 'https://static.bnpparibasfortis.be/Images/Generic/Logo_BNP/FORTIS_BL_rgb.png')
+RETURNING web_ref_id),
+
+loc AS(
+INSERT INTO location (location_address, location_city, location_zipcode, location_country)
+VALUES ('Montagne du Parc 3', 'Bruxelles', '1000', 'Belgique')
+RETURNING location_id)
+
+INSERT INTO sponsor (sponsor_name, sponsor_email, fk_location_id, fk_web_ref_id) 
+VALUES ('BNP Paribas Fortis','contact@bnpparibasfortis.be', (SELECT location_id FROM loc),(SELECT web_ref_id FROM web));
 
 
 
