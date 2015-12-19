@@ -166,6 +166,43 @@ RETURNING location_id)
 INSERT INTO sponsor (sponsor_name, sponsor_email, fk_location_id, fk_web_ref_id) 
 VALUES ('BNP Paribas Fortis','contact@bnpparibasfortis.be', (SELECT location_id FROM loc),(SELECT web_ref_id FROM web));
 
+--Belfius
+WITH 
+web AS(
+INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
+VALUES ('http://belfius.be/', 'https://belfius.be/logo.png')
+RETURNING web_ref_id),
 
+loc AS(
+INSERT INTO location (location_address, location_city, location_zipcode, location_country)
+VALUES ('Montagne du Parc 4', 'Bruxelles', '1000', 'Belgique')
+RETURNING location_id)
 
+INSERT INTO sponsor (sponsor_name, sponsor_email, fk_location_id, fk_web_ref_id) 
+VALUES ('Belfius','contact@belfius.be', (SELECT location_id FROM loc),(SELECT web_ref_id FROM web));
 
+--Keytrade
+WITH 
+web AS(
+INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
+VALUES ('http://keytrade.be/', 'https://keytrade.be/logo.png')
+RETURNING web_ref_id),
+
+loc AS(
+INSERT INTO location (location_address, location_city, location_zipcode, location_country)
+VALUES ('Montagne du Parc 5', 'Bruxelles', '1000', 'Belgique')
+RETURNING location_id)
+
+INSERT INTO sponsor (sponsor_name, sponsor_email, fk_location_id, fk_web_ref_id) 
+VALUES ('Keytrade','contact@keytrade.be', (SELECT location_id FROM loc),(SELECT web_ref_id FROM web));
+
+--------------------------------
+--Game account
+--------------------------------
+
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)
+VALUES ('dimnotyze', 1, 4);
+
+--Variante avec requêtes pour user & distribution platform
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)
+VALUES ('dimnotyze', (SELECT tuser_id FROM tuser WHERE tuser_nickname='Dimn0'), (SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='Steam'));
