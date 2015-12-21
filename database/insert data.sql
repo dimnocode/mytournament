@@ -9,28 +9,28 @@ INSERT INTO trole (trole_name) VALUES ('user');
 --Users (admin)
 --------------------------------
 
-INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) 
-VALUES ('Dimitri', 'Krasucki', 'Dimn0', 'password', '13/03/1986', 'dimitri.krasucki@gmail.com', '+32484572666', 1);
-
-INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) 
-VALUES ('Julien', 'Lopez', 'LMBE', 'password', '13/03/1986', 'lopezj@gmail.com', '+32484572666', 1);
-
-INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) 
-VALUES ('Lucas', 'Giunta', 'GL', 'password', '13/03/1986', 'giunta@gmail.com', '+32484572666', 1);
+-- INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) 
+-- VALUES ('Dimitri', 'Krasucki', 'Dimn0', 'password', '13/03/1986', 'dimitri.krasucki@gmail.com', '+32484572666', 1);
+-- 
+-- INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) 
+-- VALUES ('Julien', 'Lopez', 'LMBE', 'password', '13/03/1986', 'lopezj@gmail.com', '+32484572666', 1);
+-- 
+-- INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) 
+-- VALUES ('Lucas', 'Giunta', 'GL', 'password', '13/03/1986', 'giunta@gmail.com', '+32484572666', 1);
 
 --Variante avec requête pour le rôle
 
--- INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) 
--- VALUES ('Dimitri', 'Krasucki', 'Dimn0', 'password', '13/03/1986', 'dimitri.krasucki@gmail.com', '+32484572666', 
--- (SELECT trole_id FROM trole WHERE trole_name='admin'));
--- 
--- INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) 
--- VALUES ('Julien', 'Lopez', 'LMBE', 'password', '13/03/1986', 'lopezj@gmail.com', '+32484572666', 
--- (SELECT trole_id FROM trole WHERE trole_name='admin'));
--- 
--- INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) 
--- VALUES ('Lucas', 'Giunta', 'GL', 'password', '13/03/1986', 'giunta@gmail.com', '+32484572666', 
--- (SELECT trole_id FROM trole WHERE trole_name='admin'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) 
+VALUES ('Dimitri', 'Krasucki', 'Dimn0', 'password', '13/03/1986', 'dimitri.krasucki@gmail.com', '+32484572666', 
+(SELECT trole_id FROM trole WHERE trole_name='admin'));
+
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) 
+VALUES ('Julien', 'Lopez', 'LMBE', 'password', '13/03/1986', 'lopezj@gmail.com', '+32484572666', 
+(SELECT trole_id FROM trole WHERE trole_name='admin'));
+
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) 
+VALUES ('Lucas', 'Giunta', 'GL', 'password', '13/03/1986', 'giunta@gmail.com', '+32484572666', 
+(SELECT trole_id FROM trole WHERE trole_name='admin'));
 
 
 --------------------------------
@@ -121,31 +121,31 @@ VALUES ('coop');
 --------------------------------
 
 --GGTeam
-WITH i AS(
+WITH web AS(
 INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
 VALUES ('http://www.teamcs.net/GGteam', 'http://www.teamcs.net/GGteam/logo.png')
 RETURNING web_ref_id)
 
 INSERT INTO team (team_name, fk_web_ref_id) 
-VALUES ('GGTeam', (SELECT web_ref_id FROM i));
+VALUES ('GGTeam', (SELECT web_ref_id FROM web));
 
 --Atc Clan
-WITH i AS(
+WITH web AS(
 INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
 VALUES ('http://www.teamcs.net/AtcClan', 'http://www.teamcs.net/AtcClan/logo.png')
 RETURNING web_ref_id)
 
 INSERT INTO team (team_name, fk_web_ref_id) 
-VALUES ('ATC Clan', (SELECT web_ref_id FROM i));
+VALUES ('ATC Clan', (SELECT web_ref_id FROM web));
 
 --Kikoo Team
-WITH i AS(
+WITH web AS(
 INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
 VALUES ('http://www.teamlol.net/Kikooteam', 'http://www.teamlol.net/Kikooteam/logo.png')
 RETURNING web_ref_id)
 
 INSERT INTO team (team_name, fk_web_ref_id) 
-VALUES ('ATC Clan', (SELECT web_ref_id FROM i));
+VALUES ('Kikoo Team', (SELECT web_ref_id FROM web));
 
 --------------------------------
 --Sponsor
@@ -200,9 +200,43 @@ VALUES ('Keytrade','contact@keytrade.be', (SELECT location_id FROM loc),(SELECT 
 --Game account
 --------------------------------
 
-INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)
-VALUES ('dimnotyze', 1, 4);
+-- INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)
+-- VALUES ('dimnotyze', 1, 1);
+
+-- INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)
+-- VALUES ('dimnotyze', 1, 3);
+
+-- INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)
+-- VALUES ('LmBe', 2, 3);
+
+-- INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)
+-- VALUES ('GLucas', 3, 2);
+
+-- INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)
+-- VALUES ('LmBe', 2, 4);
 
 --Variante avec requêtes pour user & distribution platform
 INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)
 VALUES ('dimnotyze', (SELECT tuser_id FROM tuser WHERE tuser_nickname='Dimn0'), (SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='Steam'));
+
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)
+VALUES ('dimnotyze', (SELECT tuser_id FROM tuser WHERE tuser_nickname='Dimn0'), (SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='BattleNet'));
+
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)
+VALUES ('LmBe', (SELECT tuser_id FROM tuser WHERE tuser_nickname='LMBE'), (SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='BattleNet'));
+
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)
+VALUES ('GLucas', (SELECT tuser_id FROM tuser WHERE tuser_nickname='GL'), (SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='EAsports'));
+
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)
+VALUES ('LmBe', (SELECT tuser_id FROM tuser WHERE tuser_nickname='LMBE'), (SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='None/Other'));
+
+--------------------------------
+--Game account games
+--------------------------------
+
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id)
+VALUES ((SELECT game_id FROM game WHERE game_name='Counter Strike : Global Offensive'), (SELECT game_account_id FROM game_account WHERE game_account_login='dimnotyze' AND fk_tuser_id = 1 AND fk_distribution_platform_id = 1));
+
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id)
+VALUES ((SELECT game_id FROM game WHERE game_name='Counter Strike : Source'), (SELECT game_account_id FROM game_account WHERE game_account_login='dimnotyze' AND fk_tuser_id = 1 AND fk_distribution_platform_id = 1));
