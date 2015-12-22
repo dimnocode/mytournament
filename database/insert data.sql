@@ -235,8 +235,15 @@ VALUES ('LmBe', (SELECT tuser_id FROM tuser WHERE tuser_nickname='LMBE'), (SELEC
 --Game account games
 --------------------------------
 
+-- INSERT INTO game_account_game (fk_game_id, fk_game_account_id)
+-- VALUES (1,1);
+
+-- INSERT INTO game_account_game (fk_game_id, fk_game_account_id)
+-- VALUES (2,1);
+
+--Variantes avec requêtes
 INSERT INTO game_account_game (fk_game_id, fk_game_account_id)
-VALUES ((SELECT game_id FROM game WHERE game_name='Counter Strike : Global Offensive'), (SELECT game_account_id FROM game_account WHERE game_account_login='dimnotyze' AND fk_tuser_id = 1 AND fk_distribution_platform_id = 1));
+VALUES ((SELECT game_id FROM game WHERE game_name='Counter Strike : Global Offensive'), (SELECT game_account_id FROM game_account WHERE game_account_login='dimnotyze' AND fk_tuser_id = (SELECT tuser_id FROM tuser WHERE tuser_nickname = 'Dimn0') AND fk_distribution_platform_id = (SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name = 'Steam')));
 
 INSERT INTO game_account_game (fk_game_id, fk_game_account_id)
-VALUES ((SELECT game_id FROM game WHERE game_name='Counter Strike : Source'), (SELECT game_account_id FROM game_account WHERE game_account_login='dimnotyze' AND fk_tuser_id = 1 AND fk_distribution_platform_id = 1));
+VALUES ((SELECT game_id FROM game WHERE game_name='Counter Strike : Source'), (SELECT game_account_id FROM game_account WHERE game_account_login='dimnotyze' AND fk_tuser_id = (SELECT tuser_id FROM tuser WHERE tuser_nickname = 'Dimn0') AND fk_distribution_platform_id = (SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name = 'Steam')));
