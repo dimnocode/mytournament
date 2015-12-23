@@ -258,6 +258,29 @@ VALUES ((SELECT game_id FROM game WHERE game_name='League of Legend'), (SELECT g
 --tuser team
 --------------------------------
 
+-- INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+-- VALUES (1, 2);
+
+-- INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+-- VALUES (1, 3);
+
+-- INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+-- VALUES (2, 1);
+
+-- INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+-- VALUES (2, 2);
+
+-- INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+-- VALUES (2, 3);
+
+-- INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+-- VALUES (3, 1);
+
+-- INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+-- VALUES (3, 2);
+
+-- Variantes avec requêtes
+
 INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
 VALUES ((SELECT team_id FROM team WHERE team_name='ATC Clan'), (SELECT tuser_id FROM tuser WHERE tuser_nickname='Dimn0'));
 
