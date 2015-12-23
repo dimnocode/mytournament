@@ -241,9 +241,40 @@ VALUES ('LmBe', (SELECT tuser_id FROM tuser WHERE tuser_nickname='LMBE'), (SELEC
 -- INSERT INTO game_account_game (fk_game_id, fk_game_account_id)
 -- VALUES (2,1);
 
+-- INSERT INTO game_account_game (fk_game_id, fk_game_account_id)
+-- VALUES (3,5);
+
 --Variantes avec requêtes
 INSERT INTO game_account_game (fk_game_id, fk_game_account_id)
 VALUES ((SELECT game_id FROM game WHERE game_name='Counter Strike : Global Offensive'), (SELECT game_account_id FROM game_account WHERE game_account_login='dimnotyze' AND fk_tuser_id = (SELECT tuser_id FROM tuser WHERE tuser_nickname = 'Dimn0') AND fk_distribution_platform_id = (SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name = 'Steam')));
 
 INSERT INTO game_account_game (fk_game_id, fk_game_account_id)
 VALUES ((SELECT game_id FROM game WHERE game_name='Counter Strike : Source'), (SELECT game_account_id FROM game_account WHERE game_account_login='dimnotyze' AND fk_tuser_id = (SELECT tuser_id FROM tuser WHERE tuser_nickname = 'Dimn0') AND fk_distribution_platform_id = (SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name = 'Steam')));
+
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id)
+VALUES ((SELECT game_id FROM game WHERE game_name='League of Legend'), (SELECT game_account_id FROM game_account WHERE game_account_login='LmBe' AND fk_tuser_id = (SELECT tuser_id FROM tuser WHERE tuser_nickname = 'LMBE') AND fk_distribution_platform_id = (SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name = 'None/Other')));
+
+--------------------------------
+--tuser team
+--------------------------------
+
+INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+VALUES ((SELECT team_id FROM team WHERE team_name='ATC Clan'), (SELECT tuser_id FROM tuser WHERE tuser_nickname='Dimn0'));
+
+INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+VALUES ((SELECT team_id FROM team WHERE team_name='ATC Clan'), (SELECT tuser_id FROM tuser WHERE tuser_nickname='LMBE'));
+
+INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+VALUES ((SELECT team_id FROM team WHERE team_name='ATC Clan'), (SELECT tuser_id FROM tuser WHERE tuser_nickname='GL'));
+
+INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+VALUES ((SELECT team_id FROM team WHERE team_name='Kikoo Team'), (SELECT tuser_id FROM tuser WHERE tuser_nickname='Dimn0'));
+
+INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+VALUES ((SELECT team_id FROM team WHERE team_name='Kikoo Team'), (SELECT tuser_id FROM tuser WHERE tuser_nickname='LMBE'));
+
+INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+VALUES ((SELECT team_id FROM team WHERE team_name='GGTeam'), (SELECT tuser_id FROM tuser WHERE tuser_nickname='LMBE'));
+
+INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
+VALUES ((SELECT team_id FROM team WHERE team_name='GGTeam'), (SELECT tuser_id FROM tuser WHERE tuser_nickname='GL'));
