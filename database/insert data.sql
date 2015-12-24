@@ -301,3 +301,21 @@ VALUES ((SELECT team_id FROM team WHERE team_name='GGTeam'), (SELECT tuser_id FR
 
 INSERT INTO tuser_team (fk_team_id, fk_tuser_id)
 VALUES ((SELECT team_id FROM team WHERE team_name='GGTeam'), (SELECT tuser_id FROM tuser WHERE tuser_nickname='GL'));
+
+--------------------------------
+--tournament
+--------------------------------
+
+INSERT INTO tournament (tournament_name, tournament_online, tournament_max_players, tournament_description, tournament_creation_date, tournament_last_modification_date, tournament_start_date, tournament_end_date, tournament_entrance_fee, fk_location_id, fk_game_id, fk_match_type_id, fk_tournament_structure_id, fk_tuser_id)
+VALUES ('CSS Masters #1', TRUE, 50, 'Tournoi en 5vs5 sur la map officielle de_dust2', NOW(), NOW(), '2016-01-12 18:00:00', '2016-01-12 20:00:00', 5, NULL, 2, 2, 1, 1);
+
+INSERT INTO tournament (tournament_name, tournament_online, tournament_max_players, tournament_description, tournament_creation_date, tournament_last_modification_date, tournament_start_date, tournament_end_date, tournament_entrance_fee, fk_location_id, fk_game_id, fk_match_type_id, fk_tournament_structure_id, fk_tuser_id)
+VALUES ('CS:GO Masters #1', TRUE, 50, 'Tournoi en 5vs5 sur la map officielle de_dust2', NOW(), NOW(), '2016-01-12 20:00:00', '2016-01-12 22:00:00', 5, NULL, 2, 2, 1, 1);
+
+WITH loc AS(
+INSERT INTO location (location_address, location_city, location_zipcode, location_country)
+VALUES ('Grand''Rue 185', 'Charleroi', '6000', 'Belgique')
+RETURNING location_id)
+
+INSERT INTO tournament (tournament_name, tournament_online, tournament_max_players, tournament_description, tournament_creation_date, tournament_last_modification_date, tournament_start_date, tournament_end_date, tournament_entrance_fee, fk_location_id, fk_game_id, fk_match_type_id, fk_tournament_structure_id, fk_tuser_id)
+VALUES ('Lan ATC', FALSE, 100, 'Tournoi en 5vs5 sur la map officielle de_dust2', NOW(), NOW(), '2016-01-12 20:00:00', '2016-01-12 22:00:00', 5, (SELECT * FROM loc), 2, 2, 1, 1);
