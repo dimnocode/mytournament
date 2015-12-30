@@ -31,7 +31,7 @@ INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_passwo
 WITH 
 web AS(
 INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
-VALUES ('http://bnpparibasfortis.be/', 'https://static.bnpparibasfortis.be/Images/Generic/Logo_BNP/FORTIS_BL_rgb.png');
+VALUES ('http://bnpparibasfortis.be/', 'https://static.bnpparibasfortis.be/Images/Generic/Logo_BNP/FORTIS_BL_rgb.png')
 RETURNING web_ref_id),
 
 loc AS(
@@ -291,6 +291,6 @@ VALUES ('mixed');
 --reward
 --------------------------------
 
-INSERT INTO reward VALUES ('5000 po',(SELECT tournament_id FROM tournament WHERE tournament_name ='Tournoi PVP Arene'), (SELECT type_of_reward_id FROM type_of_reward where type_of_reward_name='mixed'));
-INSERT INTO reward VALUES ('500 Euro',(SELECT tournament_id FROM tournament WHERE tournament_name ='Lan ATC'),(SELECT type_of_reward_id FROM type_of_reward where type_of_reward_name='cash'));
+INSERT INTO reward (reward_name, fk_tournament_id, fk_type_of_reward_id) VALUES ('5000 po',(SELECT tournament_id FROM tournament WHERE tournament_name ='Tournoi PVP Arene'), (SELECT type_of_reward_id FROM type_of_reward where type_of_reward_name='mixed'));
+INSERT INTO reward (reward_name, fk_tournament_id, fk_type_of_reward_id) VALUES ('500 Euro',(SELECT tournament_id FROM tournament WHERE tournament_name ='Lan ATC'),(SELECT type_of_reward_id FROM type_of_reward where type_of_reward_name='cash'));
 
