@@ -1,0 +1,346 @@
+-------------------------------------------
+--INSERT 
+-------------------------------------------
+
+-------------------------------------------
+--Trole
+-------------------------------------------
+INSERT INTO (trole_name) trole VALUES ('Admin');
+INSERT INTO (trole_name) trole VALUES ('User');
+select * FROM trole
+
+-------------------------------------------
+--Tuser
+-------------------------------------------
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) VALUES ('Lucas','Giunta','LG','passLucas',GETDATE(),'lucas-giunta@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='Admin'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Julien','Lopez','JL','passJulien',GETDATE(),'julien-lopez@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='Admin'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Dimitri','Krasucki','DK','passDimitri',GETDATE(),'Dimitri-Krasucki@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='Admin'));
+
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Jordan','Bourgaux','JB','passJordan',GETDATE(),'Jordan-bourgaux@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Eloi','Claes','EL','passEloi',GETDATE(),'Eloi-claes@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
+INSERT INTO tuser(tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Jean-Michel','Abe','JMA','passJeanMichel',GETDATE(),'JM-Abe@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Samith','Alk','SA','passSamit',GETDATE(),'Samit-alk@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Bruno','Giunta','BG','passBurno',GETDATE(),'Bruno-KrasGiuntaucki@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Ugo','Giunta','UG','passUgo',GETDATE(),'Ugo-Giunta@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Celine','Rousselet','CR','passCeline',GETDATE(),'Celine-Rousselet@outlook.com','071/595741',(SELECT trole_id FROM trole WHERE trole_name='User'));
+select * FROM tuser
+
+	--------------------------------
+	--Sponsor
+	--------------------------------
+
+	--BNP Paribas Fortis
+	WITH 
+	web AS(
+	INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
+	VALUES ('http://bnpparibasfortis.be/', 'https://static.bnpparibasfortis.be/Images/Generic/Logo_BNP/FORTIS_BL_rgb.png');
+	RETURNING web_ref_id),
+
+	loc AS(
+	INSERT INTO location (location_address, location_city, location_zipcode, location_country)
+	VALUES ('Montagne du Parc 3', 'Bruxelles', '1000', 'Belgique')
+	RETURNING location_id),
+
+	INSERT INTO sponsor (sponsor_name, sponsor_email, fk_location_id, fk_web_ref_id) 
+	VALUES ('BNP Paribas Fortis','contact@bnpparibasfortis.be', (SELECT location_id FROM loc),(SELECT web_ref_id FROM web));
+
+--Belfius
+WITH 
+web AS(
+INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
+VALUES ('http://belfius.be/', 'https://belfius.be/logo.png')
+RETURNING web_ref_id),
+
+loc AS(
+INSERT INTO location (location_address, location_city, location_zipcode, location_country)
+VALUES ('Montagne du Parc 4', 'Bruxelles', '1000', 'Belgique')
+RETURNING location_id)
+
+INSERT INTO sponsor (sponsor_name, sponsor_email, fk_location_id, fk_web_ref_id) 
+VALUES ('Belfius','contact@belfius.be', (SELECT location_id FROM loc),(SELECT web_ref_id FROM web));
+
+--Keytrade
+WITH 
+web AS(
+INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
+VALUES ('http://keytrade.be/', 'https://keytrade.be/logo.png')
+RETURNING web_ref_id),
+
+loc AS(
+INSERT INTO location (location_address, location_city, location_zipcode, location_country)
+VALUES ('Montagne du Parc 5', 'Bruxelles', '1000', 'Belgique')
+RETURNING location_id)
+
+INSERT INTO sponsor (sponsor_name, sponsor_email, fk_location_id, fk_web_ref_id) 
+VALUES ('Keytrade','contact@keytrade.be', (SELECT location_id FROM loc),(SELECT web_ref_id FROM web));
+
+
+--------------------------------
+--Team
+--------------------------------
+
+--GGTeam
+WITH web AS(
+INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
+VALUES ('http://www.teamcs.net/GGteam', 'http://www.teamcs.net/GGteam/logo.png')
+RETURNING web_ref_id)
+
+INSERT INTO team (team_name, fk_web_ref_id) 
+VALUES ('GGTeam', (SELECT web_ref_id FROM web));
+
+--Atc Clan
+WITH web AS(
+INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
+VALUES ('http://www.teamcs.net/AtcClan', 'http://www.teamcs.net/AtcClan/logo.png')
+RETURNING web_ref_id)
+
+INSERT INTO team (team_name, fk_web_ref_id) 
+VALUES ('ATC Clan', (SELECT web_ref_id FROM web));
+
+--Kikoo Team
+WITH web AS(
+INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
+VALUES ('http://www.teamlol.net/Kikooteam', 'http://www.teamlol.net/Kikooteam/logo.png')
+RETURNING web_ref_id)
+
+INSERT INTO team (team_name, fk_web_ref_id) 
+VALUES ('Kikoo Team', (SELECT web_ref_id FROM web));
+
+--------------------------------
+--tuser_team
+--------------------------------
+
+INSERT INTO tuser_team VALUES ((SELECT team_id FROM team WHERE team_name='GGTeam'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='JB'));
+INSERT INTO tuser_team VALUES ((SELECT team_id FROM team WHERE team_name='GGTeam'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='EL'));
+INSERT INTO tuser_team VALUES ((SELECT team_id FROM team WHERE team_name='GGTeam'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='JMA'));
+INSERT INTO tuser_team VALUES ((SELECT team_id FROM team WHERE team_name='GGTeam'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='SA'));
+
+
+SELECT t.fk_tuser_id, u.tuser_id, u.tuser_firstname,u.tuser_firstname, te.team_name FROM tuser u 
+	JOIN tuser_team t 
+	ON t.fk_tuser_id = u.tuser_id 
+	JOIN team te
+	ON te.team_id = t.fk_team_id
+	WHERE te.team_name = 'TeamA'
+
+INSERT INTO tuser_team VALUES ((SELECT team_id FROM team WHERE team_name='ATC Clan'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='BG'));
+INSERT INTO tuser_team VALUES ((SELECT team_id FROM team WHERE team_name='ATC Clan'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='UG'));
+INSERT INTO tuser_team VALUES ((SELECT team_id FROM team WHERE team_name='ATC Clan'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='CR'));
+
+SELECT t.fk_tuser_id, u.tuser_id, u.tuser_firstname,u.tuser_firstname, te.team_name FROM tuser u 
+	JOIN tuser_team t 
+	ON t.fk_tuser_id = u.tuser_id 
+	JOIN team te
+	ON te.team_id = t.fk_team_id
+	WHERE te.team_name = 'TeamB'
+
+
+--------------------------------
+--Distribution platforms
+--------------------------------
+
+--Steam
+INSERT INTO distribution_platform (distribution_platform_name) 
+VALUES ('Steam');
+
+--EAsports
+INSERT INTO distribution_platform (distribution_platform_name) 
+VALUES ('EAsports');
+
+--BattleNet
+INSERT INTO distribution_platform (distribution_platform_name) 
+VALUES ('BattleNet');
+
+--None/Other
+INSERT INTO distribution_platform (distribution_platform_name) 
+VALUES ('None/Other');
+
+--------------------------------
+--game
+--------------------------------
+
+INSERT INTO game (game_name) VALUES ('World Of Warcraft');
+INSERT INTO game (game_name) VALUES ('Heroes Of The Storm');
+INSERT INTO game (game_name) VALUES ('Overwatch');
+
+INSERT INTO game (game_name) VALUES ('Sims 2014');
+INSERT INTO game (game_name) VALUES ('Batman Arkham City');
+INSERT INTO game (game_name) VALUES ('Org Must Die');
+INSERT INTO game (game_name) VALUES ('Counter Strike');
+
+INSERT INTO game (game_name) VALUES ('Fifa 2016');
+INSERT INTO game (game_name) VALUES ('NFL 2016');
+INSERT INTO game (game_name) VALUES ('NHL 2016');
+
+--------------------------------
+--game_account
+--------------------------------
+
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id) VALUES ('JordanBattleNet#2607',(SELECT tuser_id FROM tuser WHERE tuser_nickname='JB'),(SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='BattleNet'));
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)VALUES ('JordanEASport#0012',(SELECT tuser_id FROM tuser WHERE tuser_nickname='JB'),(SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='EAsports'));
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)VALUES ('EloiBattleNet#1245',(SELECT tuser_id FROM tuser WHERE tuser_nickname='EL'),(SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='BattleNet'));
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)VALUES ('JMBattleNet#6545',(SELECT tuser_id FROM tuser WHERE tuser_nickname='JMA'),(SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='BattleNet'));
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)VALUES ('SamitBattleNet#6565',(SELECT tuser_id FROM tuser WHERE tuser_nickname='SA'),(SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='BattleNet'));
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)VALUES ('BrunoBattleNet#6565',(SELECT tuser_id FROM tuser WHERE tuser_nickname='BG'),(SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='BattleNet'));
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)VALUES ('UgoBattleNet#6565',(SELECT tuser_id FROM tuser WHERE tuser_nickname='UG'),(SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='BattleNet'));
+INSERT INTO game_account(game_account_login, fk_tuser_id, fk_distribution_platform_id) VALUES ('UgoEASport#6565',(SELECT tuser_id FROM tuser WHERE tuser_nickname='UG'),(SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='EAsports'));
+INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)VALUES ('CelineBattleNet#6565',(SELECT tuser_id FROM tuser WHERE tuser_nickname='CR'),(SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='BattleNet'));
+
+
+SELECT g.game_account_login, d.distribution_platform_name, u.tuser_firstname, u.tuser_lastname FROM game_account g
+	JOIN tuser u 
+	ON g.fk_tuser_id = u.tuser_id
+	JOIN distribution_platform d
+	ON d.distribution_platform_id = g.fk_distribution_platform_id
+
+--------------------------------
+--game_account_game
+--------------------------------
+
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='World Of Warcraft'), (SELECT game_account_id FROM game_account WHERE game_account_login='JordanBattleNet#2607'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Heroes Of The Storm'),(SELECT game_account_id FROM game_account WHERE game_account_login='JordanBattleNet#2607'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Overwatch'),(SELECT game_account_id FROM game_account WHERE game_account_login='JordanBattleNet#2607'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Sims 2014'),(SELECT game_account_id FROM game_account WHERE game_account_login='JordanEASport#0012'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Batman Arkham City'),(SELECT game_account_id FROM game_account WHERE game_account_login='JordanEASport#0012'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Org Must Die'),(SELECT game_account_id FROM game_account WHERE game_account_login='JordanEASport#0012'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Counter Strike'),(SELECT game_account_id FROM game_account WHERE game_account_login='JordanEASport#0012'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='World Of Warcraft'),(SELECT game_account_id FROM game_account WHERE game_account_login='EloiBattleNet#1245'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Heroes Of The Storm'),(SELECT game_account_id FROM game_account WHERE game_account_login='EloiBattleNet#1245'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Overwatch'),(SELECT game_account_id FROM game_account WHERE game_account_login='EloiBattleNet#1245'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='World Of Warcraft'),(SELECT game_account_id FROM game_account WHERE game_account_login='JMBattleNet#6545'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Heroes Of The Storm'),(SELECT game_account_id FROM game_account WHERE game_account_login='JMBattleNet#6545'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Overwatch'),(SELECT game_account_id FROM game_account WHERE game_account_login='JMBattleNet#6545'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='World Of Warcraft'),(SELECT game_account_id FROM game_account WHERE game_account_login='SamitBattleNet#6565'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Heroes Of The Storm'),(SELECT game_account_id FROM game_account WHERE game_account_login='SamitBattleNet#6565'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Overwatch'),(SELECT game_account_id FROM game_account WHERE game_account_login='SamitBattleNet#6565'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='World Of Warcraft'),(SELECT game_account_id FROM game_account WHERE game_account_login='BrunoBattleNet#6565'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Heroes Of The Storm'),(SELECT game_account_id FROM game_account WHERE game_account_login='BrunoBattleNet#6565'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Overwatch'),(SELECT game_account_id FROM game_account WHERE game_account_login='BrunoBattleNet#6565'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='World Of Warcraft'),(SELECT game_account_id FROM game_account WHERE game_account_login='UgoBattleNet#6565'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Heroes Of The Storm'),(SELECT game_account_id FROM game_account WHERE game_account_login='UgoBattleNet#6565'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Overwatch'),(SELECT game_account_id FROM game_account WHERE game_account_login='UgoBattleNet#6565'));
+INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Fifa 2016'),(SELECT game_account_id FROM game_account WHERE game_account_login='UgoEASport#6565'));
+
+
+SELECT DISTINCT u.tuser_firstname, g.game_account_login, gm.game_name FROM game_account_game ga 
+	JOIN game_account g 
+	ON g.game_account_id = ga.fk_game_account_id
+	JOIN game gm 
+	ON ga.fk_game_id = gm.game_id
+	JOIN tuser u
+	ON u.tuser_id = g.fk_tuser_id
+
+--------------------------------
+--Tournament Structure
+--------------------------------
+
+INSERT INTO tournament_structure (tournament_structure_name)
+VALUES ('bracket');
+
+INSERT INTO tournament_structure (tournament_structure_name)
+VALUES ('pool');
+
+
+
+--------------------------------
+--Match type
+--------------------------------
+
+--Deathmatch
+INSERT INTO match_type (match_type_name)
+VALUES ('dm');
+
+--Team Deathmatch
+INSERT INTO match_type (match_type_name)
+VALUES ('tdm');
+
+--Duel
+INSERT INTO match_type (match_type_name)
+VALUES ('duel');
+
+--X vs Y
+INSERT INTO match_type (match_type_name)
+VALUES ('xvsy');
+
+--Cooperation
+INSERT INTO match_type (match_type_name)
+VALUES ('coop');
+
+--------------------------------
+--tournament
+--------------------------------
+
+INSERT INTO tournament (tournament_name, tournament_online, tournament_max_players, tournament_description, tournament_creation_date, tournament_last_modification_date, tournament_start_date, tournament_end_date, tournament_entrance_fee, fk_location_id, fk_game_id, fk_match_type_id, fk_tournament_structure_id, fk_tuser_id)
+VALUES ('Tournoi PVP Arene', TRUE, 50, 'Tournoi en 5vs5 sur les arènes officiele', NOW(), NOW(), '2016-01-12 18:00:00', '2016-01-12 20:00:00', 5, NULL, (SELECT game_id FROM game WHERE game_name='World Of Warcraft'), (SELECT match_type_id FROM match_type WHERE match_type_name='xvsy'), (SELECT tournament_structure_id FROM tournament_structure WHERE tournament_structure_name='bracket'), (SELECT tuser_id FROM tuser WHERE tuser_nickname='LG'));
+
+
+WITH loc AS(
+INSERT INTO location (location_address, location_city, location_zipcode, location_country)
+VALUES ('Grand''Rue 185', 'Charleroi', '6000', 'Belgique')
+RETURNING location_id)
+
+INSERT INTO tournament (tournament_name, tournament_online, tournament_max_players, tournament_description, tournament_creation_date, tournament_last_modification_date, tournament_start_date, tournament_end_date, tournament_entrance_fee, fk_location_id, fk_game_id, fk_match_type_id, fk_tournament_structure_id, fk_tuser_id)
+VALUES ('Lan ATC', FALSE, 100, 'coupe du monde sur FIFA 2016 ', NOW(), NOW(), '2016-01-12 20:00:00', '2016-01-12 22:00:00', 5, (SELECT * FROM loc), (SELECT game_id FROM game WHERE game_name ='Fifa 2016'), (SELECT match_type_id FROM match_type WHERE match_type_name='xvsy'), (SELECT tournament_structure_id FROM tournament_structure WHERE tournament_structure_name='bracket'), (SELECT tuser_id FROM tuser WHERE tuser_nickname='LG')));
+
+--------------------------------
+--tuser_tournament
+--------------------------------
+
+
+INSERT INTO tuser_tournament VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Tournoi PVP Arene'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='JB'));
+INSERT INTO tuser_tournament VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Tournoi PVP Arene'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='EL'));
+INSERT INTO tuser_tournament VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Tournoi PVP Arene'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='JMA'));
+INSERT INTO tuser_tournament VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Tournoi PVP Arene'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='SA'));
+INSERT INTO tuser_tournament VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Tournoi PVP Arene'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='BG'));
+
+INSERT INTO tuser_tournament VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Lan ATC'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='JB'));
+INSERT INTO tuser_tournament VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Lan ATC'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='UG'));
+
+
+SELECT DISTINCT t.tournament_name, g.game_name, u.tuser_firstname, u.tuser_lastname, ga.game_account_login FROM tuser_tournament tu
+	JOIN tuser u 
+	ON tu.fk_tuser_id = u.tuser_id
+	JOIN tournament t
+	ON tu.fk_tournament_id = t.tournament_id
+	JOIN game g
+	ON t.fk_game_id = g.game_id
+	JOIN game_account ga
+	ON ga.fk_tuser_id = u.tuser_id
+
+--------------------------------
+--tournament_sponsor
+--------------------------------
+INSERT INTO tournament_sponsor VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Tournoi PVP Arene'),(SELECT sponsor_id FROM sponsor where sponsor_name='Belfius'));
+INSERT INTO tournament_sponsor VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Lan ATC'),(SELECT sponsor_id FROM sponsor where sponsor_name='BNP Paribas Fortis'));
+INSERT INTO tournament_sponsor VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Lan ATC'),(SELECT sponsor_id FROM sponsor where sponsor_name='Belfius'));
+SELECT u.tuser_firstname, t.tournament_name, s.sponsor_name FROM tournament_sponsor ts
+	JOIN sponsor s
+	ON ts.fk_sponsor_id = s.sponsor_id
+	JOIN tournament T 
+	ON ts.fk_tournament_id = t.tournament_id
+	JOIN tuser u 
+	ON t.fk_tuser_id = u.tuser_id
+
+
+
+
+--------------------------------
+--Type of Rewards
+--------------------------------
+
+INSERT INTO type_of_reward (type_of_reward_name)
+VALUES ('cash');
+
+INSERT INTO type_of_reward (type_of_reward_name)
+VALUES ('equipment');
+
+INSERT INTO type_of_reward (type_of_reward_name)
+VALUES ('mixed');
+
+--------------------------------
+--reward
+--------------------------------
+
+INSERT INTO reward VALUES ('5000 po',(SELECT tournament_id FROM tournament WHERE tournament_name ='Tournoi PVP Arene'), (SELECT type_of_reward_id FROM type_of_reward where type_of_reward_name='mixed'));
+INSERT INTO reward VALUES ('500 Euro',(SELECT tournament_id FROM tournament WHERE tournament_name ='Lan ATC'),(SELECT type_of_reward_id FROM type_of_reward where type_of_reward_name='cash'));
+SELECT * FROM reward
