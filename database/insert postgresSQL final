@@ -5,23 +5,23 @@
 -------------------------------------------
 --Trole
 -------------------------------------------
-INSERT INTO (trole_name) trole VALUES ('Admin');
-INSERT INTO (trole_name) trole VALUES ('User');
+INSERT INTO trole (trole_name) VALUES ('Admin');
+INSERT INTO trole (trole_name) VALUES ('User');
 
 -------------------------------------------
 --Tuser
 -------------------------------------------
-INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) VALUES ('Lucas','Giunta','LG','passLucas',GETDATE(),'lucas-giunta@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='Admin'));
-INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Julien','Lopez','JL','passJulien',GETDATE(),'julien-lopez@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='Admin'));
-INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Dimitri','Krasucki','DK','passDimitri',GETDATE(),'Dimitri-Krasucki@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='Admin'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id) VALUES ('Lucas','Giunta','LG','passLucas',NOW(),'lucas-giunta@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='Admin'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Julien','Lopez','JL','passJulien',NOW(),'julien-lopez@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='Admin'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Dimitri','Krasucki','DK','passDimitri',NOW(),'Dimitri-Krasucki@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='Admin'));
 
-INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Jordan','Bourgaux','JB','passJordan',GETDATE(),'Jordan-bourgaux@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
-INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Eloi','Claes','EL','passEloi',GETDATE(),'Eloi-claes@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
-INSERT INTO tuser(tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Jean-Michel','Abe','JMA','passJeanMichel',GETDATE(),'JM-Abe@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
-INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Samith','Alk','SA','passSamit',GETDATE(),'Samit-alk@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
-INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Bruno','Giunta','BG','passBurno',GETDATE(),'Bruno-KrasGiuntaucki@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
-INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Ugo','Giunta','UG','passUgo',GETDATE(),'Ugo-Giunta@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
-INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Celine','Rousselet','CR','passCeline',GETDATE(),'Celine-Rousselet@outlook.com','071/595741',(SELECT trole_id FROM trole WHERE trole_name='User'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Jordan','Bourgaux','JB','passJordan',NOW(),'Jordan-bourgaux@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Eloi','Claes','EL','passEloi',NOW(),'Eloi-claes@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
+INSERT INTO tuser(tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Jean-Michel','Abe','JMA','passJeanMichel',NOW(),'JM-Abe@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Samith','Alk','SA','passSamit',NOW(),'Samit-alk@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Bruno','Giunta','BG','passBurno',NOW(),'Bruno-KrasGiuntaucki@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Ugo','Giunta','UG','passUgo',NOW(),'Ugo-Giunta@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
+INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Celine','Rousselet','CR','passCeline',NOW(),'Celine-Rousselet@outlook.com','071/595741',(SELECT trole_id FROM trole WHERE trole_name='User'));
 
 --------------------------------
 --Sponsor
@@ -37,7 +37,7 @@ RETURNING web_ref_id),
 loc AS(
 INSERT INTO location (location_address, location_city, location_zipcode, location_country)
 VALUES ('Montagne du Parc 3', 'Bruxelles', '1000', 'Belgique')
-RETURNING location_id),
+RETURNING location_id)
 
 INSERT INTO sponsor (sponsor_name, sponsor_email, fk_location_id, fk_web_ref_id) 
 VALUES ('BNP Paribas Fortis','contact@bnpparibasfortis.be', (SELECT location_id FROM loc),(SELECT web_ref_id FROM web));
@@ -249,7 +249,7 @@ VALUES ('Grand''Rue 185', 'Charleroi', '6000', 'Belgique')
 RETURNING location_id)
 
 INSERT INTO tournament (tournament_name, tournament_online, tournament_max_players, tournament_description, tournament_creation_date, tournament_last_modification_date, tournament_start_date, tournament_end_date, tournament_entrance_fee, fk_location_id, fk_game_id, fk_match_type_id, fk_tournament_structure_id, fk_tuser_id)
-VALUES ('Lan ATC', FALSE, 100, 'coupe du monde sur FIFA 2016 ', NOW(), NOW(), '2016-01-12 20:00:00', '2016-01-12 22:00:00', 5, (SELECT * FROM loc), (SELECT game_id FROM game WHERE game_name ='Fifa 2016'), (SELECT match_type_id FROM match_type WHERE match_type_name='xvsy'), (SELECT tournament_structure_id FROM tournament_structure WHERE tournament_structure_name='bracket'), (SELECT tuser_id FROM tuser WHERE tuser_nickname='LG')));
+VALUES ('Lan ATC', FALSE, 100, 'coupe du monde sur FIFA 2016 ', NOW(), NOW(), '2016-01-12 20:00:00', '2016-01-12 22:00:00', 5, (SELECT * FROM loc), (SELECT game_id FROM game WHERE game_name ='Fifa 2016'), (SELECT match_type_id FROM match_type WHERE match_type_name='xvsy'), (SELECT tournament_structure_id FROM tournament_structure WHERE tournament_structure_name='bracket'), (SELECT tuser_id FROM tuser WHERE tuser_nickname='LG'));
 
 --------------------------------
 --tuser_tournament
