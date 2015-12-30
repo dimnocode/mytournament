@@ -7,7 +7,6 @@
 -------------------------------------------
 INSERT INTO (trole_name) trole VALUES ('Admin');
 INSERT INTO (trole_name) trole VALUES ('User');
-select * FROM trole
 
 -------------------------------------------
 --Tuser
@@ -23,26 +22,25 @@ INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_passwo
 INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Bruno','Giunta','BG','passBurno',GETDATE(),'Bruno-KrasGiuntaucki@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
 INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Ugo','Giunta','UG','passUgo',GETDATE(),'Ugo-Giunta@outlook.com','0497/302449',(SELECT trole_id FROM trole WHERE trole_name='User'));
 INSERT INTO tuser (tuser_firstname, tuser_lastname, tuser_nickname, tuser_password, tuser_dob, tuser_email, tuser_phone, fk_trole_id)VALUES ('Celine','Rousselet','CR','passCeline',GETDATE(),'Celine-Rousselet@outlook.com','071/595741',(SELECT trole_id FROM trole WHERE trole_name='User'));
-select * FROM tuser
 
-	--------------------------------
-	--Sponsor
-	--------------------------------
+--------------------------------
+--Sponsor
+--------------------------------
 
-	--BNP Paribas Fortis
-	WITH 
-	web AS(
-	INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
-	VALUES ('http://bnpparibasfortis.be/', 'https://static.bnpparibasfortis.be/Images/Generic/Logo_BNP/FORTIS_BL_rgb.png');
-	RETURNING web_ref_id),
+--BNP Paribas Fortis
+WITH 
+web AS(
+INSERT INTO web_ref (web_ref_website, web_ref_logo_url)
+VALUES ('http://bnpparibasfortis.be/', 'https://static.bnpparibasfortis.be/Images/Generic/Logo_BNP/FORTIS_BL_rgb.png');
+RETURNING web_ref_id),
 
-	loc AS(
-	INSERT INTO location (location_address, location_city, location_zipcode, location_country)
-	VALUES ('Montagne du Parc 3', 'Bruxelles', '1000', 'Belgique')
-	RETURNING location_id),
+loc AS(
+INSERT INTO location (location_address, location_city, location_zipcode, location_country)
+VALUES ('Montagne du Parc 3', 'Bruxelles', '1000', 'Belgique')
+RETURNING location_id),
 
-	INSERT INTO sponsor (sponsor_name, sponsor_email, fk_location_id, fk_web_ref_id) 
-	VALUES ('BNP Paribas Fortis','contact@bnpparibasfortis.be', (SELECT location_id FROM loc),(SELECT web_ref_id FROM web));
+INSERT INTO sponsor (sponsor_name, sponsor_email, fk_location_id, fk_web_ref_id) 
+VALUES ('BNP Paribas Fortis','contact@bnpparibasfortis.be', (SELECT location_id FROM loc),(SELECT web_ref_id FROM web));
 
 --Belfius
 WITH 
@@ -116,23 +114,9 @@ INSERT INTO tuser_team VALUES ((SELECT team_id FROM team WHERE team_name='GGTeam
 INSERT INTO tuser_team VALUES ((SELECT team_id FROM team WHERE team_name='GGTeam'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='SA'));
 
 
-SELECT t.fk_tuser_id, u.tuser_id, u.tuser_firstname,u.tuser_firstname, te.team_name FROM tuser u 
-	JOIN tuser_team t 
-	ON t.fk_tuser_id = u.tuser_id 
-	JOIN team te
-	ON te.team_id = t.fk_team_id
-	WHERE te.team_name = 'TeamA'
-
 INSERT INTO tuser_team VALUES ((SELECT team_id FROM team WHERE team_name='ATC Clan'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='BG'));
 INSERT INTO tuser_team VALUES ((SELECT team_id FROM team WHERE team_name='ATC Clan'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='UG'));
 INSERT INTO tuser_team VALUES ((SELECT team_id FROM team WHERE team_name='ATC Clan'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='CR'));
-
-SELECT t.fk_tuser_id, u.tuser_id, u.tuser_firstname,u.tuser_firstname, te.team_name FROM tuser u 
-	JOIN tuser_team t 
-	ON t.fk_tuser_id = u.tuser_id 
-	JOIN team te
-	ON te.team_id = t.fk_team_id
-	WHERE te.team_name = 'TeamB'
 
 
 --------------------------------
@@ -187,12 +171,6 @@ INSERT INTO game_account(game_account_login, fk_tuser_id, fk_distribution_platfo
 INSERT INTO game_account (game_account_login, fk_tuser_id, fk_distribution_platform_id)VALUES ('CelineBattleNet#6565',(SELECT tuser_id FROM tuser WHERE tuser_nickname='CR'),(SELECT distribution_platform_id FROM distribution_platform WHERE distribution_platform_name='BattleNet'));
 
 
-SELECT g.game_account_login, d.distribution_platform_name, u.tuser_firstname, u.tuser_lastname FROM game_account g
-	JOIN tuser u 
-	ON g.fk_tuser_id = u.tuser_id
-	JOIN distribution_platform d
-	ON d.distribution_platform_id = g.fk_distribution_platform_id
-
 --------------------------------
 --game_account_game
 --------------------------------
@@ -220,15 +198,6 @@ INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT g
 INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Heroes Of The Storm'),(SELECT game_account_id FROM game_account WHERE game_account_login='UgoBattleNet#6565'));
 INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Overwatch'),(SELECT game_account_id FROM game_account WHERE game_account_login='UgoBattleNet#6565'));
 INSERT INTO game_account_game (fk_game_id, fk_game_account_id) VALUES ((SELECT game_id FROM game WHERE game_name='Fifa 2016'),(SELECT game_account_id FROM game_account WHERE game_account_login='UgoEASport#6565'));
-
-
-SELECT DISTINCT u.tuser_firstname, g.game_account_login, gm.game_name FROM game_account_game ga 
-	JOIN game_account g 
-	ON g.game_account_id = ga.fk_game_account_id
-	JOIN game gm 
-	ON ga.fk_game_id = gm.game_id
-	JOIN tuser u
-	ON u.tuser_id = g.fk_tuser_id
 
 --------------------------------
 --Tournament Structure
@@ -296,31 +265,12 @@ INSERT INTO tuser_tournament VALUES ((SELECT tournament_id FROM tournament WHERE
 INSERT INTO tuser_tournament VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Lan ATC'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='JB'));
 INSERT INTO tuser_tournament VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Lan ATC'),(SELECT tuser_id FROM tuser WHERE tuser_nickname='UG'));
 
-
-SELECT DISTINCT t.tournament_name, g.game_name, u.tuser_firstname, u.tuser_lastname, ga.game_account_login FROM tuser_tournament tu
-	JOIN tuser u 
-	ON tu.fk_tuser_id = u.tuser_id
-	JOIN tournament t
-	ON tu.fk_tournament_id = t.tournament_id
-	JOIN game g
-	ON t.fk_game_id = g.game_id
-	JOIN game_account ga
-	ON ga.fk_tuser_id = u.tuser_id
-
 --------------------------------
 --tournament_sponsor
 --------------------------------
 INSERT INTO tournament_sponsor VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Tournoi PVP Arene'),(SELECT sponsor_id FROM sponsor where sponsor_name='Belfius'));
 INSERT INTO tournament_sponsor VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Lan ATC'),(SELECT sponsor_id FROM sponsor where sponsor_name='BNP Paribas Fortis'));
 INSERT INTO tournament_sponsor VALUES ((SELECT tournament_id FROM tournament WHERE tournament_name ='Lan ATC'),(SELECT sponsor_id FROM sponsor where sponsor_name='Belfius'));
-SELECT u.tuser_firstname, t.tournament_name, s.sponsor_name FROM tournament_sponsor ts
-	JOIN sponsor s
-	ON ts.fk_sponsor_id = s.sponsor_id
-	JOIN tournament T 
-	ON ts.fk_tournament_id = t.tournament_id
-	JOIN tuser u 
-	ON t.fk_tuser_id = u.tuser_id
-
 
 
 
@@ -343,4 +293,4 @@ VALUES ('mixed');
 
 INSERT INTO reward VALUES ('5000 po',(SELECT tournament_id FROM tournament WHERE tournament_name ='Tournoi PVP Arene'), (SELECT type_of_reward_id FROM type_of_reward where type_of_reward_name='mixed'));
 INSERT INTO reward VALUES ('500 Euro',(SELECT tournament_id FROM tournament WHERE tournament_name ='Lan ATC'),(SELECT type_of_reward_id FROM type_of_reward where type_of_reward_name='cash'));
-SELECT * FROM reward
+
