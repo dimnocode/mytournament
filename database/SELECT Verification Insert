@@ -12,7 +12,7 @@ SELECT t.fk_tuser_id, u.tuser_id, u.tuser_firstname,u.tuser_firstname, te.team_n
 	ON t.fk_tuser_id = u.tuser_id 
 	JOIN team te
 	ON te.team_id = t.fk_team_id
-	WHERE te.team_name = 'GGTeam '
+	WHERE te.team_name = 'GGTeam'
 	
 ----------------
 --tusser_team (Team 2)
