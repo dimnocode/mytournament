@@ -1,0 +1,79 @@
+select * FROM trole
+select * FROM tuser
+select * FROM team
+select * FROM location
+select * FROM web_ref
+select * FROM sponsor
+----------------
+--tusser_team (Team 1)
+---------------
+SELECT t.fk_tuser_id, u.tuser_id, u.tuser_firstname,u.tuser_firstname, te.team_name FROM tuser u 
+	JOIN tuser_team t 
+	ON t.fk_tuser_id = u.tuser_id 
+	JOIN team te
+	ON te.team_id = t.fk_team_id
+	WHERE te.team_name = 'GGTeam '
+	
+----------------
+--tusser_team (Team 2)
+---------------
+SELECT t.fk_tuser_id, u.tuser_id, u.tuser_firstname,u.tuser_firstname, te.team_name FROM tuser u 
+	JOIN tuser_team t 
+	ON t.fk_tuser_id = u.tuser_id 
+	JOIN team te
+	ON te.team_id = t.fk_team_id
+	WHERE te.team_name = 'ATC Clan'
+	
+select * from distribution_platform
+select * FROM game
+
+----------------
+--game_account
+---------------
+SELECT g.game_account_login, d.distribution_platform_name, u.tuser_firstname, u.tuser_lastname FROM game_account g
+	JOIN tuser u 
+	ON g.fk_tuser_id = u.tuser_id
+	JOIN distribution_platform d
+	ON d.distribution_platform_id = g.fk_distribution_platform_id
+	
+----------------
+--game_account_game
+---------------
+SELECT DISTINCT u.tuser_firstname, g.game_account_login, gm.game_name FROM game_account_game ga 
+	JOIN game_account g 
+	ON g.game_account_id = ga.fk_game_account_id
+	JOIN game gm 
+	ON ga.fk_game_id = gm.game_id
+	JOIN tuser u
+	ON u.tuser_id = g.fk_tuser_id
+	
+select * from tournament_structure
+select * from match_type
+select * from tournament
+	
+----------------
+--tuser_tournament
+---------------
+SELECT DISTINCT t.tournament_name, g.game_name, u.tuser_firstname, u.tuser_lastname, ga.game_account_login FROM tuser_tournament tu
+	JOIN tuser u 
+	ON tu.fk_tuser_id = u.tuser_id
+	JOIN tournament t
+	ON tu.fk_tournament_id = t.tournament_id
+	JOIN game g
+	ON t.fk_game_id = g.game_id
+	JOIN game_account ga
+	ON ga.fk_tuser_id = u.tuser_id
+	
+----------------
+--sponsor_tournament
+---------------
+SELECT u.tuser_firstname, t.tournament_name, s.sponsor_name FROM tournament_sponsor ts
+	JOIN sponsor s
+	ON ts.fk_sponsor_id = s.sponsor_id
+	JOIN tournament T 
+	ON ts.fk_tournament_id = t.tournament_id
+	JOIN tuser u 
+	ON t.fk_tuser_id = u.tuser_id
+	
+	select * from reward
+	select * from type_of_reward
